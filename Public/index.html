@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Trámites Escolares</title>
+
+<style>
+:root {
+    --azul-fuerte: #1e3a5f;
+    --azul-cielo: #3498db;
+    --gris: #f4f6f8;
+    --gris-borde: #dcdfe3;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: var(--gris);
+}
+
+header {
+    background: var(--azul-fuerte);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 700px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.info {
+    background: #eaf3fb;
+    border-left: 5px solid var(--azul-cielo);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid var(--gris-borde);
+}
+
+button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
+    background: var(--azul-cielo);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Secundaria No. 53</h1>
+    <p>Portal de Trámites Escolares</p>
+</header>
+
+<div class="container">
+
+    <div class="info">
+        Este es el medio oficial para realizar solicitudes escolares. 
+        El tiempo de respuesta es de 24 a 48 horas hábiles.
+    </div>
+
+    <!-- 🔥 FORM CORRECTO -->
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+
+        <label>Tipo de trámite</label>
+        <select name="tramite" required>
+            <option value="">Seleccione una opción</option>
+            <option>Solicitud de constancia</option>
+            <option>Justificante de inasistencia</option>
+            <option>Inscripción / reinscripción</option>
+            <option>Solicitud administrativa</option>
+            <option>Otro</option>
+        </select>
+
+        <label>Nombre del alumno</label>
+        <input type="text" name="alumno" required>
+
+        <label>Grado y grupo</label>
+        <input type="text" name="grupo" required>
+
+        <label>Nombre del padre/madre/tutor</label>
+        <input type="text" name="tutor" required>
+
+        <label>Correo electrónico</label>
+        <input type="email" name="correo" required>
+
+        <label>Teléfono</label>
+        <input type="tel" name="telefono">
+
+        <label>Descripción del trámite</label>
+        <textarea name="descripcion" rows="4" required></textarea>
+
+        <label>Adjuntar documento</label>
+        <input type="file" name="archivo" required>
+
+        <button type="submit">Enviar solicitud</button>
+    </form>
+
+</div>
+
+<footer>
+    © 2026 Secundaria No.53 - Todos los derechos reservados
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+[
+  {
+    "tramite": "Solicitud de constancia",
+    "alumno": "a",
+    "grupo": "a",
+    "correo": "adsf@gmail.com",
+    "archivo": "4c26afd2-f63c-4858-8202-a8174e3a8b57.png",
+    "token": "cb86e920",
+    "fecha": "2026-04-22T20:15:17.403Z"
+  },
+  {
+    "tramite": "Solicitud de constancia",
+    "alumno": "a",
+    "grupo": "a",
+    "correo": "adsf@gmail.com",
+    "archivo": "4613c0af-e93f-4d22-9e1b-caf11eff1597.png",
+    "token": "6afcb51b",
+    "fecha": "2026-04-22T20:16:31.493Z"
+  },
+  {
+    "tramite": "Solicitud de constancia",
+    "alumno": "a",
+    "grupo": "a",
+    "correo": "a@gmail.com",
+    "archivo": "58dfc8ab-bdc9-467e-8fe4-5355c92f6513.png",
+    "token": "c5f01720",
+    "fecha": "2026-04-22T20:21:27.139Z"
+  }
+]
