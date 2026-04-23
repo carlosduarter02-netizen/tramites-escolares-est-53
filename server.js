@@ -7,6 +7,12 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// 🔥 IMPORTANTE (para leer formularios)
+app.use(express.urlencoded({ extended: true }));
+
+// 📁 Ruta segura para data.json
+const dataPath = path.join(__dirname, "data.json");
+
 // Configuración de almacenamiento
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -37,10 +43,10 @@ app.use(express.static("public"));
 
 // Ruta principal
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// 📌 AQUÍ VA EL DEBUG (bien puesto)
+// 📌 SUBIDA DE FORMULARIO
 app.post("/upload", upload.single("archivo"), (req, res) => {
 
     console.log("=== NUEVA SOLICITUD ===");
@@ -66,14 +72,22 @@ app.post("/upload", upload.single("archivo"), (req, res) => {
             fecha: new Date()
         };
 
+        // 🔥 Leer datos de forma segura
         let data = [];
 
-        if (fs.existsSync("data.json")) {
-            data = JSON.parse(fs.readFileSync("data.json"));
+        try {
+            if (fs.existsSync(dataPath)) {
+                const fileContent = fs.readFileSync(dataPath, "utf-8");
+                data = fileContent ? JSON.parse(fileContent) : [];
+            }
+        } catch (error) {
+            console.error("Error leyendo data.json:", error);
+            data = [];
         }
 
+        // 🔥 Guardar nueva solicitud
         data.push(nuevaSolicitud);
-        fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
+        fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
 
         res.send(`
             <h2>Solicitud enviada correctamente</h2>
@@ -83,22 +97,27 @@ app.post("/upload", upload.single("archivo"), (req, res) => {
         `);
 
     } catch (error) {
-        console.error(error);
-        res.send("Ocurrió un error al procesar la solicitud");
+        console.error("ERROR EN /upload:", error);
+        res.status(500).send("Ocurrió un error al procesar la solicitud");
     }
 });
 
 // Panel admin
 app.get("/admin", (req, res) => {
     try {
-        const data = JSON.parse(fs.readFileSync("data.json"));
+        if (!fs.existsSync(dataPath)) {
+            return res.json([]);
+        }
+
+        const data = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
         res.json(data);
-    } catch {
+    } catch (error) {
+        console.error("Error en /admin:", error);
         res.json([]);
     }
 });
 
 // Iniciar servidor
 app.listen(PORT, () => {
-    console.log("Servidor corriendo en http://localhost:" + PORT);
+    console.log("Servidor corriendo en puerto " + PORT);
 });
